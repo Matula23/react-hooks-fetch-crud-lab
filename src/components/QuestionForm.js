@@ -19,9 +19,52 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
-  }
 
+    console.log({
+      prompt: formData.prompt,
+      answers: [
+        formData.answer1,
+        formData.answer2,
+        formData.answer3,
+        formData.answer4
+      ],
+      correctIndex: parseInt(formData.correctIndex)
+    })
+      fetch('http://localhost:4000/questions',{
+      method: 'POST',
+      header: {
+         "Content-Type": "application/json" 
+        },
+      body: JSON.stringify({
+          prompt: formData.prompt,
+          answers: [
+            formData.answer1,
+            formData.answer2,
+            formData.answer3,
+            formData.answer4
+          ],
+          correctIndex: parseInt(formData.correctIndex)
+        }
+      ),
+      
+      // JSON.stringify(formData.prompt),
+      //   "answers": JSON.stringify([formData.answer1, formData.answer2, formData.answer3, formData.answer4]),
+        // JSON.stringify(correctIndex: formData.correctIndex)
+    })
+    // .then(r => r.json())
+    // .then(post => console.log(post))
+    }
+  
+    // console.log('formData after submit: ', {
+    //   "prompt": formData.prompt,
+    //   "answwers": [
+    //     formData.answer1,
+    //     formData.answer2,
+    //     formData.answer3,
+    //     formData.answer4
+    //   ],
+    //   "correctIndex": formData.correctIndex
+    // })
   return (
     <section>
       <h1>New Question</h1>
